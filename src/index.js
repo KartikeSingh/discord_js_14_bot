@@ -4,7 +4,11 @@ const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const { readdirSync } = require('fs');
 const { join } = require('path');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGO_URI).then(() => console.log("Database Connected")).catch(() => console.log("Database Connection Failed"))
+
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages] });
 
 client.commands = new Collection();
 client.timeouts = new Collection();
