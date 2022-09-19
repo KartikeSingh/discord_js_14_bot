@@ -15,8 +15,8 @@ module.exports = {
      * @param {CommandInteraction} interaction 
      */
     run: async (client, interaction) => {
-        const data = await afk.findOne({ afk: true, user: interaction.user.id });
-
+        const data = await afk.findOne({ afk: true, id: interaction.user.id });
+console.log(data)
         if (data) return interaction.reply({
             embeds: [
                 new EmbedBuilder()
