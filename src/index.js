@@ -5,10 +5,20 @@ const { readdirSync } = require('fs');
 const { join } = require('path');
 
 const mongoose = require('mongoose');
+const GiveawaysManager = require('./utility/GiveawayManager');
 
 mongoose.connect(process.env.MONGO_URI).then(() => console.log("Database Connected")).catch(() => console.log("Database Connection Failed"))
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages] });
+
+client.giveawayManager = new GiveawaysManager(client, {
+    default: {
+        botsCanWin: false,
+        embedColor: '#FF0000',
+        embedColorEnd: '#000000',
+        reaction: '🎉'
+    },
+});
 
 client.commands = new Collection();
 client.timeouts = new Collection();
